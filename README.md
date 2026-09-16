@@ -1,4 +1,4 @@
-# Sistem Informasi Toko Kelontong
+# Sistem Informasi Inventory Barang
 
 Fullstack web app untuk operasional toko kecil-menengah dengan stack:
 - Frontend: React + TailwindCSS

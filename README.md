@@ -1,6 +1,5 @@
 # Inventory Management System
 
-## Deskripsi Profesional
 Inventory Management System adalah aplikasi web fullstack untuk digitalisasi operasional toko retail skala kecil hingga menengah. Solusi ini membantu bisnis mengelola stok, transaksi penjualan, data pemasok, dan pelaporan secara terpusat agar pengambilan keputusan lebih cepat, akurat, dan terukur.
 
 ## Ringkasan Proyek

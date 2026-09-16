@@ -1,66 +1,75 @@
-# Sistem Informasi Inventory Barang
+# Inventory Management System
 
-Fullstack web app untuk operasional toko kecil-menengah dengan stack:
-- Frontend: React + TailwindCSS
-- Backend: Node.js + Express REST API
-- Database: MySQL (relasi ter-normalisasi)
+## Deskripsi Profesional
+Inventory Management System adalah aplikasi web fullstack untuk digitalisasi operasional toko retail skala kecil hingga menengah. Solusi ini membantu bisnis mengelola stok, transaksi penjualan, data pemasok, dan pelaporan secara terpusat agar pengambilan keputusan lebih cepat, akurat, dan terukur.
+
+## Ringkasan Proyek
+- **Frontend:** React (Vite) + Tailwind CSS
+- **Backend:** Node.js + Express REST API
+- **Database:** MySQL 8
+- **Deployment lokal:** Docker Compose (Frontend + Backend + MySQL)
 
 ## Fitur Utama
-- Login JWT + RBAC (`owner`, `admin`, `kasir`, `staff_gudang`)
-- Dashboard ringkasan penjualan + grafik + low stock
-- Manajemen Produk, Kategori, Supplier
-- POS transaksi penjualan (atomic DB transaction)
-- Riwayat transaksi + filter tanggal + export CSV
-- Laporan penjualan, produk terlaris, laba kotor + export CSV
-- UI modern responsif, dark mode, toast, loading/empty state
+- Autentikasi JWT dan role-based access control (`owner`, `admin`, `kasir`, `staff_gudang`)
+- Dashboard performa penjualan dan monitoring stok minimum
+- Manajemen master data: produk, kategori, dan supplier
+- Modul penjualan (POS) dengan transaksi database atomik
+- Riwayat transaksi dengan filter dan export CSV
+- Laporan penjualan, produk terlaris, dan laba kotor
+- Antarmuka responsif dengan state loading dan notifikasi
 
-## Struktur
-- `frontend` : aplikasi React
-- `backend` : API Express + SQL schema
+## Struktur Repository
+- `/frontend` — aplikasi client React
+- `/backend` — REST API, business logic, dan SQL scripts
+- `/backend/sql/schema.sql` — struktur database
+- `/backend/sql/seed.sql` — data awal pengguna dan contoh data
+- `/docker-compose.yml` — orkestrasi layanan lokal
 
-## Setup Backend
-1. Copy env:
-   - `backend/.env.example` -> `backend/.env`
-2. Buat schema database:
-   - Atau jalankan otomatis: `cd backend && npm run db:init`
-   - (Manual opsional) jalankan `backend/sql/schema.sql` lalu `backend/sql/seed.sql`
-3. Install dependency dan jalankan:
-   - `cd backend`
-   - `npm install`
-   - `npm run dev`
-
-Default user seed:
-- owner / `Admin123!`
-- admin / `Admin123!`
-- kasir / `Admin123!`
-- gudang / `Admin123!`
-
-## Setup Frontend
-1. Copy env:
-   - `frontend/.env.example` -> `frontend/.env`
-2. Jalankan:
-   - `cd frontend`
-   - `npm install`
-   - `npm run dev`
-
-## Menjalankan via Docker (Recommended)
-Jalankan semua service (MySQL + Backend + Frontend):
-
-1. Dari root project:
+## Menjalankan Proyek (Docker - Direkomendasikan)
+1. Jalankan seluruh service:
    - `docker compose up -d --build`
 2. Akses aplikasi:
    - Frontend: `http://localhost:8080`
-   - Backend health: `http://localhost:5000/health`
-3. Stop service:
+   - API Health Check: `http://localhost:5000/health`
+3. Hentikan service:
    - `docker compose down`
 
 Catatan:
-- MySQL host port: `3307` (container tetap `3306`)
+- Port MySQL host: `3307` (container tetap `3306`)
 - Inisialisasi database otomatis dari `backend/sql/schema.sql` dan `backend/sql/seed.sql`
-- Jika ingin reset data total: `docker compose down -v`
+- Reset data penuh: `docker compose down -v`
+
+## Menjalankan Proyek (Manual)
+### 1) Backend
+1. Salin environment file:
+   - `backend/.env.example` → `backend/.env`
+2. Install dependency:
+   - `cd backend && npm install`
+3. Inisialisasi database:
+   - `npm run db:init`
+4. Jalankan server:
+   - `npm run dev`
+
+Default akun hasil seed:
+- `owner / Admin123!`
+- `admin / Admin123!`
+- `kasir / Admin123!`
+- `gudang / Admin123!`
+
+### 2) Frontend
+1. Salin environment file:
+   - `frontend/.env.example` → `frontend/.env`
+2. Install dependency dan jalankan:
+   - `cd frontend && npm install`
+   - `npm run dev`
 
 ## Security Baseline
-- SQL Injection: query parameterized (`mysql2` prepared statements)
-- XSS: sanitasi output by default React + Helmet headers
-- CSRF: token endpoint + `csurf` middleware + `X-CSRF-Token`
-- Rate limiting dan global error handling
+- HTTP security headers dengan `helmet`
+- Rate limiting request global
+- CORS terkontrol berdasarkan origin frontend
+- CSRF protection (token endpoint + middleware)
+- Validasi input dan parameterized query untuk mitigasi SQL injection
+
+## Endpoint Dasar
+- Base API: `/api`
+- Health check: `/health`
